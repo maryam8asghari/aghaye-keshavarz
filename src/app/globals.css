@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme {
+  --color-green-900: #1B4332;
+  --color-green-700: #2D6A4F;
+  --color-green-500: #40916C;
+  --color-green-400: #52B788;
+  --color-green-100: #D8F3DC;
+  --color-green-50: #EDF7F0;
+  --color-amber-500: #E9A23B;
+  --color-amber-100: #FDF3D7;
+  --color-earth-700: #6B4226;
+  --color-earth-100: #F5EDE0;
+  --color-earth-50: #FAF6F0;
+}
+
+html {
+  direction: rtl;
+}
+
+body {
+  font-family: var(--font-vazirmatn), system-ui, sans-serif;
+  background-color: var(--color-earth-50);
+  color: #1a1a1a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fix Leaflet z-index so Select dropdowns appear above map */
+
+.leaflet-pane {
+  z-index: 1 !important;
+  font-family: var(--font-sans) !important;
+}
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 1 !important;
+}
+.leaflet-control {
+  z-index: 1 !important;
+}
+.leaflet-overlay-pane {
+  z-index: 1 !important;
+}
+.leaflet-marker-pane {
+  z-index: 2 !important;
+}
+.leaflet-popup-pane {
+  z-index: 1000 !important;
+}
+.leaflet-popup-content p {
+  margin: 5px !important;
+}
+
+/* Live train markers above station markers */
+.live-train-marker {
+  z-index: 100 !important;
+}
+
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-green-400);
+  border-radius: 2px;
+}
+
+/* Bottom sheet backdrop */
+.drawer-backdrop {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+/* Star rating */
+.star-filled {
+  color: var(--color-amber-500);
+}
+
+.star-empty {
+  color: #d1d5db;
+}
+
+/* Pulse animation for AI triage */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 1.5s ease-out infinite;
+}
