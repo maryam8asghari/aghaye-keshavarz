@@ -1,7 +1,9 @@
+// src/app/page.tsx
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Tractor, UserCheck, ChevronLeft, Stethoscope } from "lucide-react";
+import Link from "next/link";
+import { Tractor, UserCheck, ChevronLeft, Stethoscope, Info } from "lucide-react";
 import { useAppStore } from "@/store/useAppStore";
 
 export default function HomePage() {
@@ -14,9 +16,9 @@ export default function HomePage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-green-800 via-green-700 to-green-600 relative overflow-hidden">
+    <main className="min-h-screen bg-gradient-to-b from-green-800 via-green-700 to-green-600 relative overflow-hidden flex flex-col">
       {/* Background pattern */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
         <svg width="100%" height="100%" viewBox="0 0 400 400">
           <pattern id="grain" width="40" height="40" patternUnits="userSpaceOnUse">
             <circle cx="20" cy="20" r="1.5" fill="white" />
@@ -27,7 +29,7 @@ export default function HomePage() {
         </svg>
       </div>
 
-      <div className="relative z-10 flex flex-col min-h-screen px-6 py-12">
+      <div className="relative z-10 flex flex-col flex-1 px-6 py-12">
         {/* Hero */}
         <div className="flex-1 flex flex-col justify-center items-center text-center text-white gap-8">
           <div className="w-24 h-24 bg-white/20 backdrop-blur-sm rounded-3xl flex items-center justify-center border border-white/30">
@@ -61,7 +63,7 @@ export default function HomePage() {
         </div>
 
         {/* Role Selection */}
-        <div className="space-y-3 pb-8">
+        <div className="space-y-3 pb-8 max-w-md mx-auto w-full">
           <p className="text-center text-green-100 text-sm mt-4 mb-4">
             نقش خود را انتخاب کنید
           </p>
@@ -114,6 +116,17 @@ export default function HomePage() {
             <ChevronLeft size={20} className="text-green-300" />
           </button>
         </div>
+
+        {/* Footer */}
+        <footer className="border-t border-white/20 mt-auto pt-6 text-center">
+          <Link
+            href="/info"
+            className="inline-flex items-center gap-2 text-green-200 hover:text-white transition-colors py-2 px-4 rounded-xl hover:bg-white/5"
+          >
+            <Info size={18} />
+            <span className="text-sm font-medium">اطلاعات پروژه، مستندات و پروپوزال</span>
+          </Link>
+        </footer>
       </div>
     </main>
   );
