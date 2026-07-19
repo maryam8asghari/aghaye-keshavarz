@@ -61,7 +61,6 @@ bio : "سلام، من مریم اصغری هستم؛ دانشجوی رشته ت
       <div className="relative z-10 max-w-4xl mx-auto px-6 py-8 flex flex-col min-h-screen">
         <header className="flex items-center justify-between mb-12 pb-4 border-b border-white/20">
           <div className="flex items-center gap-3">
-            <span className="text-3xl">👨‍💻</span>
             <h1 className="text-xl font-bold">درباره من</h1>
           </div>
           <Link
