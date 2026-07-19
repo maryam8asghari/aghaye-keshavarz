@@ -58,29 +58,22 @@ export default function CaseRoomPage() {
     ? getAdvisorById(caseData.assignedLocalGuideId)
     : null;
 
-  // استفاده از متغیر برای نمایش در بخش UI
   const guideName = guide ? guide.name : "تخصیص نشده";
-
   const sponsor = caseData.sponsorId ? getSponsorById(caseData.sponsorId) : null;
 
-  // Build timeline steps from timelineEvents
-  const timelineSteps: TimelineStep[] = caseData.timelineEvents.map(
-    (evt, i) => {
-      // استفاده از isLast برای منطق‌های شرطی (مثلاً حذف Border در آخرین آیتم)
-      const isLast = i === caseData.timelineEvents.length - 1;
+  const timelineSteps: TimelineStep[] = caseData.timelineEvents.map((evt, i) => {
+    const isLast = i === caseData.timelineEvents.length - 1;
 
-      return {
-        label: evt.actorName ? `${evt.label} (${evt.actorName})` : evt.label,
-        time: evt.time,
-        completed: true,
-        current: false,
-        icon: evt.type,
-        // می‌توان isLast را به کامپوننت پاس داد اگر تایپ TimelineStep اجازه دهد
-      };
-    }
-  );
+    return {
+      label: evt.actorName ? `${evt.label} (${evt.actorName})` : evt.label,
+      time: evt.time,
+      completed: true,
+      current: false,
+      icon: evt.type,
+      isLast,
+    };
+  });
 
-  // Add a "current" step at the end based on status
   if (caseData.status !== "resolved" && caseData.status !== "monitoring") {
     const statusStepMap: Record<string, string> = {
       open: "در انتظار تحلیل",
@@ -91,6 +84,7 @@ export default function CaseRoomPage() {
       "specialist-review": "متخصص در حال بررسی",
       recommendation: "توصیه ارائه شده",
     };
+
     const currentLabel = statusStepMap[caseData.status];
     if (currentLabel) {
       timelineSteps.push({
@@ -98,13 +92,20 @@ export default function CaseRoomPage() {
         time: "در حال انتظار",
         completed: false,
         current: true,
+        isLast: true,
       });
+
+      if (timelineSteps.length > 1) {
+        timelineSteps[timelineSteps.length - 2] = {
+          ...timelineSteps[timelineSteps.length - 2],
+          isLast: false,
+        };
+      }
     }
   }
 
   return (
     <main className="min-h-screen bg-earth-50 pb-24">
-      {/* Header */}
       <div className="bg-white border-b border-green-100 px-5 py-4">
         <div className="flex items-center gap-3">
           <button
@@ -132,14 +133,12 @@ export default function CaseRoomPage() {
       </div>
 
       <div className="px-5 py-6 space-y-5">
-        {/* Case Details */}
         <div className="bg-white rounded-2xl p-5 shadow-sm border border-green-50">
           <h2 className="font-bold text-sm text-earth-700 mb-3">
             جزئیات پرونده
           </h2>
 
           <div className="space-y-3">
-            {/* Creator */}
             <div className="flex items-center gap-3">
               {caseData.createdByRole === "farmer" ? (
                 <User size={16} className="text-green-600 shrink-0" />
@@ -149,7 +148,9 @@ export default function CaseRoomPage() {
               <div>
                 <p className="text-xs text-earth-700">ثبت‌کننده</p>
                 <p className="text-sm font-medium">
-                  {caseData.createdByRole === "farmer" ? "کشاورز" : "راهبر محلی / کارشناس ترویج"}
+                  {caseData.createdByRole === "farmer"
+                    ? "کشاورز"
+                    : "راهبر محلی / کارشناس ترویج"}
                 </p>
               </div>
             </div>
@@ -178,31 +179,29 @@ export default function CaseRoomPage() {
               </div>
             </div>
 
-            {/* Sponsor */}
             {sponsor && (
               <div className="flex items-center gap-3">
                 <Building2 size={16} className="text-green-600 shrink-0" />
                 <div>
                   <p className="text-xs text-earth-700">حامی</p>
                   <p className="text-sm font-medium">{sponsor.name}</p>
-                  <p className="text-xs text-earth-700">{sponsor.type} — {sponsor.city}</p>
+                  <p className="text-xs text-earth-700">
+                    {sponsor.type} — {sponsor.city}
+                  </p>
                 </div>
               </div>
             )}
 
-            {/* Assigned Guide Section */}
             <div className="flex items-center gap-3">
               <Users size={16} className="text-green-600 shrink-0" />
               <div>
                 <p className="text-xs text-earth-700">راهبر محلی</p>
-                {/* استفاده از guideName در اینجا */}
                 <p className="text-sm font-medium">{guideName}</p>
                 {guide && <p className="text-xs text-earth-700">{guide.title}</p>}
               </div>
             </div>
           </div>
 
-          {/* AI Triage Result */}
           {caseData.triageResult && (
             <div className="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-1">
@@ -230,7 +229,6 @@ export default function CaseRoomPage() {
           )}
         </div>
 
-        {/* Timeline */}
         <div className="bg-white rounded-2xl p-5 shadow-sm border border-green-50">
           <h2 className="font-bold text-sm text-earth-700 mb-5">
             فعالیت‌های پرونده
@@ -238,26 +236,22 @@ export default function CaseRoomPage() {
           <CaseTimeline steps={timelineSteps} />
         </div>
 
-        {/* Field Visit */}
         <FieldVisitSection
           status={caseData.fieldVisitStatus}
           report={caseData.fieldVisitReport}
         />
 
-        {/* Specialist */}
         <SpecialistSection
           specialistId={caseData.specialistId}
           specialistStatus={caseData.specialistStatus}
           recommendation={caseData.specialistRecommendation}
         />
 
-        {/* Outcome + Feedback */}
         <OutcomeSection
           outcome={caseData.finalOutcome}
           feedback={caseData.feedback}
         />
 
-        {/* Action Button */}
         {caseData.status !== "resolved" && caseData.status !== "monitoring" && (
           <button className="w-full bg-green-700 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-green-800 transition-all">
             <MessageCircle size={18} />
