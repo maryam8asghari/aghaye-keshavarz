@@ -3,7 +3,7 @@
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Tractor, UserCheck, ChevronLeft, Stethoscope, Info } from "lucide-react";
+import { Tractor, UserCheck, ChevronLeft, Stethoscope, Info, User } from "lucide-react";
 import { useAppStore } from "@/store/useAppStore";
 
 export default function HomePage() {
@@ -118,16 +118,30 @@ export default function HomePage() {
 
         </div>
 
-        {/* Footer */}
-        <footer className="border-t border-white/20 mt-auto pt-6 text-center">
-          <Link
-            href="/info"
-            className="inline-flex items-center gap-2 text-green-200 hover:text-white transition-colors py-2 px-4 rounded-xl hover:bg-white/5"
-          >
-            <Info size={18} />
-            <span className="text-sm font-medium">اطلاعات پروژه، مستندات و پروپوزال</span>
-          </Link>
-        </footer>
+      {/* Footer */}
+<footer className="border-t border-white/20 mt-auto pt-6 pb-4">
+  <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+    {/* لینک اطلاعات پروژه */}
+    <Link
+      href="/info"
+      className="inline-flex items-center gap-2 text-green-200 hover:text-white transition-colors py-2 px-4 rounded-xl hover:bg-white/5"
+    >
+      <Info size={18} />
+      <span className="text-sm font-medium">اطلاعات پروژه و پروپوزال</span>
+    </Link>
+
+    <div className="hidden sm:block w-px h-4 bg-white/20"></div>
+
+    <Link
+      href="/about"
+      className="inline-flex items-center gap-2 text-green-200 hover:text-white transition-colors py-2 px-4 rounded-xl hover:bg-white/5"
+    >
+      <User size={18} />
+      <span className="text-sm font-medium">درباره من</span>
+    </Link>
+  </div>
+</footer>
+
       </div>
     </main>
   );
