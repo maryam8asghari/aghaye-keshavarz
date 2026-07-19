@@ -63,7 +63,7 @@ export default function CaseRoomPage() {
   // Build timeline steps from timelineEvents
   const timelineSteps: TimelineStep[] = caseData.timelineEvents.map(
     (evt, i) => {
-      const isLast = i === caseData.timelineEvents.length - 1;
+     // const isLast = i === caseData.timelineEvents.length - 1;
       return {
         label: evt.actorName ? `${evt.label} (${evt.actorName})` : evt.label,
         time: evt.time,
