@@ -9,7 +9,6 @@ import {
   Calendar,
   Search,
   Filter,
-  AlertCircle,
 } from "lucide-react";
 import { useAppStore } from "@/store/useAppStore";
 import {
