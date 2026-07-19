@@ -21,26 +21,37 @@ export default function DashboardPage() {
   const role = useAppStore((s) => s.role);
   const [statusFilter, setStatusFilter] = useState<string>("all");
 
-  // Filter cases relevant to specialists
+  // Filter cases based on role
   const relevantCases = cases.filter((c) => {
     if (role === "specialist") {
-      // Specialists see: escalated, specialist-review, recommendation, and pending
-      if (statusFilter !== "all") return c.status === statusFilter;
+      // Specialists see cases referred to them
+      if (statusFilter !== "all") {
+        return (c.specialistId === "adv-009" || c.specialistStatus === "pending") && c.status === statusFilter;
+      }
       return (
+        c.specialistId === "adv-009" ||
         c.specialistStatus === "pending" ||
-        c.specialistStatus === "assigned" ||
         c.status === "escalated" ||
         c.status === "specialist-review" ||
         c.status === "recommendation"
       );
     }
-    // Local guides see their assigned cases
-    if (statusFilter !== "all") return c.status === statusFilter;
-    return c.assignedLocalGuideId !== null;
+    
+    if (role === "local_guide") {
+      // Local guides see their assigned cases
+      if (statusFilter !== "all") {
+        return c.assignedLocalGuideId === "adv-001" && c.status === statusFilter;
+      }
+      return c.assignedLocalGuideId === "adv-001";
+    }
+    
+    return false;
   });
 
   const filterOptions = [
     { value: "all", label: "همه" },
+    { value: "assigned", label: "تخصیص یافته" },
+    { value: "field-visit", label: "بازدید میدانی" },
     { value: "escalated", label: "ارجاع شده" },
     { value: "specialist-review", label: "در بررسی" },
     { value: "recommendation", label: "توصیه شده" },
@@ -99,7 +110,7 @@ export default function DashboardPage() {
           return (
             <button
               key={c.id}
-              onClick={() => router.push(`/case/${c.id}`)}
+              onClick={() => router.push("/case/" + c.id)}
               className="w-full bg-white rounded-2xl p-4 shadow-sm border border-green-50 text-right hover:shadow-md transition-all active:scale-[0.99]"
             >
               <div className="flex items-start justify-between gap-3">

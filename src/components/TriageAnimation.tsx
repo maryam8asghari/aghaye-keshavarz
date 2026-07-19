@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Brain, CheckCircle, AlertTriangle } from "lucide-react";
 
@@ -16,20 +16,26 @@ interface TriageAnimationProps {
 
 export function TriageAnimation({ onComplete }: TriageAnimationProps) {
   const [phase, setPhase] = useState<"loading" | "result">("loading");
+  const hasCompleted = useRef(false);
 
   useEffect(() => {
+    if (hasCompleted.current) return;
+    
     const timer = setTimeout(() => {
       setPhase("result");
-      onComplete({
-        disease: "زنگ زرد گندم",
-        confidence: 92,
-        recommendation:
-          "ارجاع به مشاور محلی برای بازدید میدانی و تأیید تشخیص",
-      });
+      if (!hasCompleted.current) {
+        hasCompleted.current = true;
+        onComplete({
+          disease: "زنگ زرد گندم",
+          confidence: 92,
+          recommendation:
+            "ارجاع به مشاور محلی برای بازدید میدانی و تأیید تشخیص",
+        });
+      }
     }, 2500);
 
     return () => clearTimeout(timer);
-  }, [onComplete]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <AnimatePresence mode="wait">

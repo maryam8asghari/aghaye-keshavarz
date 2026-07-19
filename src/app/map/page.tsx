@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { Navbar } from "@/components/Navbar";
 import { MapPin } from "lucide-react";
+import { useAppStore } from "@/store/useAppStore";
 
 const MapView = dynamic(
   () => import("@/components/MapView").then((m) => ({ default: m.MapView })),
@@ -20,6 +21,34 @@ const MapView = dynamic(
 );
 
 export default function MapPage() {
+  const role = useAppStore((s) => s.role);
+
+  const getPageTitle = () => {
+    switch (role) {
+      case "farmer":
+        return "نقشه راهبران محلی";
+      case "local_guide":
+        return "نقشه متخصصان";
+      case "specialist":
+        return "نقشه تأمین‌کنندگان";
+      default:
+        return "نقشه مشاوران";
+    }
+  };
+
+  const getPageSubtitle = () => {
+    switch (role) {
+      case "farmer":
+        return "راهبران محلی فعال در منطقه";
+      case "local_guide":
+        return "متخصصان فعال در منطقه";
+      case "specialist":
+        return "آزمایشگاه‌ها، نهالستان‌ها و فروشگاه‌ها";
+      default:
+        return "مشاوران فعال در منطقه تهران و ورامین";
+    }
+  };
+
   return (
     <main className="h-screen flex flex-col">
       {/* Header */}
@@ -27,9 +56,9 @@ export default function MapPage() {
         <div className="flex items-center gap-3">
           <MapPin size={22} className="text-green-700" />
           <div>
-            <h1 className="font-bold text-green-800">نقشه مشاوران</h1>
+            <h1 className="font-bold text-green-800">{getPageTitle()}</h1>
             <p className="text-xs text-earth-700">
-              مشاوران فعال در منطقه تهران و ورامین
+              {getPageSubtitle()}
             </p>
           </div>
         </div>

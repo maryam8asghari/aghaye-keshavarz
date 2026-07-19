@@ -11,7 +11,7 @@ export interface Advisor {
   badges: Badge[];
   lat: number;
   lng: number;
-  coverageRadius: number; // km
+  coverageRadius: number;
   avatarColor: string;
 }
 
@@ -25,8 +25,8 @@ export interface Badge {
 export const advisors: Advisor[] = [
   {
     id: "adv-001",
-    name: "دکتر علی محمدی",
-    title: "مشاور ارشد زراعت",
+    name: "علی محمدی",
+    title: "کارشناس ترویج - زراعت",
     role: "local_guide",
     specialties: ["گندم", "جو", "مدیریت آب", "خاک‌شناسی"],
     rating: 4.8,
@@ -44,8 +44,8 @@ export const advisors: Advisor[] = [
   },
   {
     id: "adv-002",
-    name: "مهندس سارا احمدی",
-    title: "کارشناس آفات و بیماری‌ها",
+    name: "سارا احمدی",
+    title: "کارشناس ترویج - آفات و بیماری‌ها",
     role: "local_guide",
     specialties: ["آفات", "بیماری‌های گیاهی", "قلمه‌زنی", "برنامه مدیریت تلفیقی"],
     rating: 4.6,
@@ -63,8 +63,8 @@ export const advisors: Advisor[] = [
   },
   {
     id: "adv-003",
-    name: "دکتر حسن رضایی",
-    title: "متخصص باغبانی",
+    name: "حسن رضایی",
+    title: "کارشناس ترویج - باغبانی",
     role: "local_guide",
     specialties: ["میوه‌جات", "سبزیجات", "گلخانه", "آبیاری قطره‌ای"],
     rating: 4.9,
@@ -83,8 +83,8 @@ export const advisors: Advisor[] = [
   },
   {
     id: "adv-004",
-    name: "مهندس مریم کریمی",
-    title: "کارشناس خاک و کود",
+    name: "مریم کریمی",
+    title: "کارشناس ترویج - خاک و کود",
     role: "local_guide",
     specialties: ["تحلیل خاک", "کوددهی", "اصلاح خاک", "کمپوست"],
     rating: 4.5,
@@ -99,10 +99,10 @@ export const advisors: Advisor[] = [
   },
   {
     id: "adv-005",
-    name: "دکتر محمد نوری",
-    title: "مشاور ارشد زراعت",
+    name: "محمد نوری",
+    title: "کارشناس ترویج - زراعت آبی",
     role: "local_guide",
-    specialties: [" برنج", "پنبه", "آبیاری", "مدیریت منابع آب"],
+    specialties: ["برنج", "پنبه", "آبیاری", "مدیریت منابع آب"],
     rating: 4.7,
     reviewCount: 89,
     solvedCases: 63,
@@ -118,8 +118,8 @@ export const advisors: Advisor[] = [
   },
   {
     id: "adv-006",
-    name: "مهندس زهرا حسینی",
-    title: "کارشناس گیاهان دارویی",
+    name: "زهرا حسینی",
+    title: "کارشناس ترویج - گیاهان دارویی",
     role: "local_guide",
     specialties: ["گیاهان دارویی", "گل محمدی", "زعفران", "گیاهان معطر"],
     rating: 4.4,
@@ -134,8 +134,8 @@ export const advisors: Advisor[] = [
   },
   {
     id: "adv-007",
-    name: "دکتر احمد صادقی",
-    title: "مشاور ارشد دامپروری",
+    name: "احمد صادقی",
+    title: "کارشناس ترویج - دامپروری",
     role: "local_guide",
     specialties: ["دامپروری", "خوراک دام", "بهداشت دام", "دام سبک"],
     rating: 4.3,
@@ -152,8 +152,8 @@ export const advisors: Advisor[] = [
   },
   {
     id: "adv-008",
-    name: "مهندس نیلوفر شریفی",
-    title: "کارشناس کشاورزی دقیق",
+    name: "نیلوفر شریفی",
+    title: "کارشناس ترویج - کشاورزی دقیق",
     role: "local_guide",
     specialties: ["کشاورزی دقیق", "سامانه‌های اطلاعاتی", "پهپاد", "حسگرها"],
     rating: 4.8,
@@ -211,7 +211,7 @@ export const advisors: Advisor[] = [
     name: "دکتر رضا کاظمی",
     title: "متخصص آفات",
     role: "specialist",
-    specialties: ["حشره‌شناسی", "مدیریت تلفیقی آفات", " سموم کشاورزی"],
+    specialties: ["حشره‌شناسی", "مدیریت تلفیقی آفات", "سموم کشاورزی"],
     rating: 4.8,
     reviewCount: 71,
     solvedCases: 55,

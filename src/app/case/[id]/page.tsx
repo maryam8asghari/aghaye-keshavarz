@@ -31,6 +31,7 @@ import { Navbar } from "@/components/Navbar";
 export default function CaseRoomPage() {
   const params = useParams();
   const router = useRouter();
+  const role = useAppStore((s) => s.role);
   const getCaseById = useAppStore((s) => s.getCaseById);
   const caseData = getCaseById(params.id as string);
 
@@ -43,12 +44,14 @@ export default function CaseRoomPage() {
           <p className="text-sm text-earth-700/60 mt-2">
             این پرونده ممکن است هنوز ثبت نشده باشد
           </p>
-          <button
-            onClick={() => router.push("/case/new")}
-            className="mt-6 bg-green-700 text-white px-6 py-3 rounded-xl font-medium"
-          >
-            ثبت پرونده جدید
-          </button>
+          {role !== "specialist" && (
+            <button
+              onClick={() => router.push("/case/new")}
+              className="mt-6 bg-green-700 text-white px-6 py-3 rounded-xl font-medium"
+            >
+              ثبت پرونده جدید
+            </button>
+          )}
         </div>
       </main>
     );
@@ -65,7 +68,7 @@ export default function CaseRoomPage() {
     const isLast = i === caseData.timelineEvents.length - 1;
 
     return {
-      label: evt.actorName ? `${evt.label} (${evt.actorName})` : evt.label,
+      label: evt.actorName ? evt.label + " (" + evt.actorName + ")" : evt.label,
       time: evt.time,
       completed: true,
       current: false,
@@ -118,12 +121,12 @@ export default function CaseRoomPage() {
             <h1 className="font-bold text-lg">پرونده {caseData.id}</h1>
             <div className="flex items-center gap-2 mt-1 flex-wrap">
               <span
-                className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${caseStatusColors[caseData.status]}`}
+                className={"px-2.5 py-0.5 rounded-full text-xs font-medium " + caseStatusColors[caseData.status]}
               >
                 {caseStatusLabels[caseData.status]}
               </span>
               <span
-                className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${urgencyColors[caseData.aiUrgency]}`}
+                className={"px-2.5 py-0.5 rounded-full text-xs font-medium " + urgencyColors[caseData.aiUrgency]}
               >
                 {urgencyLabels[caseData.aiUrgency]}
               </span>
@@ -220,7 +223,7 @@ export default function CaseRoomPage() {
                   <div className="w-full h-1.5 bg-amber-200 rounded-full">
                     <div
                       className="h-full bg-amber-500 rounded-full"
-                      style={{ width: `${caseData.confidence}%` }}
+                      style={{ width: caseData.confidence + "%" }}
                     />
                   </div>
                 </div>

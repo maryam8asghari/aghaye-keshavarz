@@ -13,6 +13,7 @@ interface AppState {
   addCase: (c: Case) => void;
   updateCase: (id: string, patch: Partial<Case>) => void;
   getCaseById: (id: string) => Case | undefined;
+  getCasesByFarmer: (farmerId: string) => Case[];
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
@@ -30,4 +31,6 @@ export const useAppStore = create<AppState>((set, get) => ({
       cases: state.cases.map((c) => (c.id === id ? { ...c, ...patch } : c)),
     })),
   getCaseById: (id) => get().cases.find((c) => c.id === id),
+  getCasesByFarmer: (farmerId) =>
+    get().cases.filter((c) => c.creatorId === farmerId),
 }));

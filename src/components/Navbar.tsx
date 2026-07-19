@@ -2,26 +2,34 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, MapPin, FolderOpen, LayoutDashboard } from "lucide-react";
+import { Home, MapPin, FolderOpen, LayoutDashboard, Archive } from "lucide-react";
 import { useAppStore } from "@/store/useAppStore";
 import { cn } from "@/lib/utils";
 
 const baseNavItems = [
   { href: "/", label: "خانه", icon: Home },
   { href: "/map", label: "نقشه", icon: MapPin },
-  { href: "/case/new", label: "پرونده", icon: FolderOpen },
 ];
 
+const caseItem = { href: "/case/new", label: "پرونده", icon: FolderOpen };
 const dashboardItem = { href: "/dashboard", label: "داشبورد", icon: LayoutDashboard };
+const archiveItem = { href: "/case/archive", label: "آرشیو", icon: Archive };
 
 export function Navbar() {
   const pathname = usePathname();
   const role = useAppStore((s) => s.role);
 
-  const navItems =
-    role === "specialist" || role === "local_guide"
-      ? [...baseNavItems, dashboardItem]
-      : baseNavItems;
+  let navItems = [...baseNavItems];
+
+  if (role === "farmer") {
+    navItems.push(caseItem);
+    navItems.push(archiveItem);
+  } else if (role === "local_guide") {
+    navItems.push(caseItem);
+    navItems.push(dashboardItem);
+  } else if (role === "specialist") {
+    navItems.push(dashboardItem);
+  }
 
   return (
     <nav className="fixed bottom-0 inset-x-0 z-50 bg-white/90 backdrop-blur-md border-t border-green-100 safe-area-pb">
