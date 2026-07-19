@@ -3,7 +3,7 @@
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Tractor, UserCheck, ChevronLeft, Stethoscope, Info, Archive } from "lucide-react";
+import { Tractor, UserCheck, ChevronLeft, Stethoscope, Info } from "lucide-react";
 import { useAppStore } from "@/store/useAppStore";
 
 export default function HomePage() {
