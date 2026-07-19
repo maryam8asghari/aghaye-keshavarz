@@ -11,14 +11,14 @@ const vazirmatn = Vazirmatn({
 });
 
 export const metadata: Metadata = {
-  title: "آقای وزیر | پلتفرم مدیریت پرونده کشاورزی",
+  title: "آقای کشاورز | پلتفرم مدیریت پرونده کشاورزی",
   description:
     "پلتفرم مدیریت پرونده و معرفی مشاور برای کشاورزان ایرانی",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "آقای وزیر",
+    title: "آقای کشاورز",
   },
 };
 
