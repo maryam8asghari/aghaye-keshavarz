@@ -57,7 +57,7 @@ export default function CaseRoomPage() {
   const guide = caseData.assignedLocalGuideId
     ? getAdvisorById(caseData.assignedLocalGuideId)
     : null;
-  const guideName = guide ? guide.name : "تخصیص نشده";
+ // const guideName = guide ? guide.name : "تخصیص نشده";
   const sponsor = caseData.sponsorId ? getSponsorById(caseData.sponsorId) : null;
 
   // Build timeline steps from timelineEvents
