@@ -31,11 +31,7 @@ const createIcon = (color: string) =>
     iconAnchor: [16, 16],
   });
 
-function MapEvents({
-  onAdvisorClick,
-}: {
-  onAdvisorClick: (advisor: Advisor) => void;
-}) {
+function MapEvents() {
   const map = useMap();
 
   // Fix map size after render
@@ -63,7 +59,7 @@ export function MapView() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         />
 
-        <MapEvents onAdvisorClick={setSelectedAdvisor} />
+        <MapEvents />
 
         {advisors.map((advisor) => (
           <div key={advisor.id}>
@@ -96,18 +92,18 @@ export function MapView() {
         title="اطلاعات مشاور"
       >
         {selectedAdvisor && (
-          <div className="flex flex-col gap-4 mb-16">
+          <div className="mb-16 flex flex-col gap-4">
             <AdvisorCard advisor={selectedAdvisor} />
-            <div className="flex gap-3 mt-2">
+            <div className="mt-2 flex gap-3">
               <Link
                 href={`/advisor/${selectedAdvisor.id}`}
-                className="flex-1 bg-green-700 text-white text-center py-3 rounded-xl font-medium hover:bg-green-800 transition-colors"
+                className="flex-1 rounded-xl bg-green-700 py-3 text-center font-medium text-white transition-colors hover:bg-green-800"
               >
                 مشاهده پروفایل
               </Link>
               <Link
                 href="/case/new"
-                className="flex-1 border-2 border-green-700 text-green-700 text-center py-3 rounded-xl font-medium hover:bg-green-50 transition-colors"
+                className="flex-1 rounded-xl border-2 border-green-700 py-3 text-center font-medium text-green-700 transition-colors hover:bg-green-50"
               >
                 درخواست مشاوره
               </Link>
@@ -117,18 +113,18 @@ export function MapView() {
       </BottomDrawer>
 
       {/* Map legend */}
-      <div className="absolute top-4 right-4 z-40 bg-white/90 backdrop-blur-sm rounded-xl p-3 shadow-sm border border-green-100">
-        <p className="text-xs font-medium text-green-800 mb-2">
+      <div className="absolute right-4 top-4 z-40 rounded-xl border border-green-100 bg-white/90 p-3 shadow-sm backdrop-blur-sm">
+        <p className="mb-2 text-xs font-medium text-green-800">
           مشاوران فعال
         </p>
         <div className="space-y-1.5">
           {advisors.slice(0, 3).map((a) => (
             <div key={a.id} className="flex items-center gap-2">
               <div
-                className="w-3 h-3 rounded-full"
+                className="h-3 w-3 rounded-full"
                 style={{ backgroundColor: a.avatarColor }}
               />
-              <span className="text-xs text-earth-700 truncate max-w-[120px]">
+              <span className="max-w-[120px] truncate text-xs text-earth-700">
                 {a.name}
               </span>
             </div>
