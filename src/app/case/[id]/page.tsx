@@ -57,19 +57,25 @@ export default function CaseRoomPage() {
   const guide = caseData.assignedLocalGuideId
     ? getAdvisorById(caseData.assignedLocalGuideId)
     : null;
- // const guideName = guide ? guide.name : "تخصیص نشده";
+
+  // استفاده از متغیر برای نمایش در بخش UI
+  const guideName = guide ? guide.name : "تخصیص نشده";
+
   const sponsor = caseData.sponsorId ? getSponsorById(caseData.sponsorId) : null;
 
   // Build timeline steps from timelineEvents
   const timelineSteps: TimelineStep[] = caseData.timelineEvents.map(
     (evt, i) => {
-     // const isLast = i === caseData.timelineEvents.length - 1;
+      // استفاده از isLast برای منطق‌های شرطی (مثلاً حذف Border در آخرین آیتم)
+      const isLast = i === caseData.timelineEvents.length - 1;
+
       return {
         label: evt.actorName ? `${evt.label} (${evt.actorName})` : evt.label,
         time: evt.time,
         completed: true,
         current: false,
         icon: evt.type,
+        // می‌توان isLast را به کامپوننت پاس داد اگر تایپ TimelineStep اجازه دهد
       };
     }
   );
@@ -184,17 +190,16 @@ export default function CaseRoomPage() {
               </div>
             )}
 
-            {/* Assigned Guide */}
-            {guide && (
-              <div className="flex items-center gap-3">
-                <Users size={16} className="text-green-600 shrink-0" />
-                <div>
-                  <p className="text-xs text-earth-700">راهبر محلی</p>
-                  <p className="text-sm font-medium">{guide.name}</p>
-                  <p className="text-xs text-earth-700">{guide.title}</p>
-                </div>
+            {/* Assigned Guide Section */}
+            <div className="flex items-center gap-3">
+              <Users size={16} className="text-green-600 shrink-0" />
+              <div>
+                <p className="text-xs text-earth-700">راهبر محلی</p>
+                {/* استفاده از guideName در اینجا */}
+                <p className="text-sm font-medium">{guideName}</p>
+                {guide && <p className="text-xs text-earth-700">{guide.title}</p>}
               </div>
-            )}
+            </div>
           </div>
 
           {/* AI Triage Result */}
